@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family: 'genshin';
+    src: url('../fonts/ja-jp.ttf') format('truetype'),
+    url('../fonts/zh-cn.ttf') format('truetype');
+ }
+
+body {
+    font-family: 'genshin', sans-serif;
+}
