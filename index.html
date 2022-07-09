@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WebWorker Sample1</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/imgtesst.css">
+  <link rel="shortcut icon" href="img/favicon.ico">
+</head>
+<body>
+
+<h1>WebWorker Sample</h1>
+<form>
+  <input type="text" id="serif" placeholder="文字を入力してください">
+  <div class="container"></div>
+</form>
+    <div class="container">
+    <img src="img/item_name_bar/m1.PNG" style="vertical-align:middle;">
+    <img src="img/backgrand/m1.PNG" style="vertical-align:middle;">
+    <p id="response"></p>
+    </div>
+
+<script>
+const serif = document.querySelector("#serif");
+const response = document.querySelector("#response");
+window.onload = ()=>{
+  if ( ! window.Worker ) {
+    alert("WebWorkerに対応していないブラウザです");
+    return(false);
+  }
+  startWorker();
+}
+function startWorker(){
+  const myWorker = new Worker("worker.js");
+  serif.addEventListener("keyup", (e)=>{
+    myWorker.postMessage(serif.value);
+  });
+  myWorker.addEventListener("message", (e)=>{
+    response.textContent = e.data;
+  });
+  myWorker.addEventListener("error", (e)=>{
+    console.error(`[myWorker] ${e.message}`);
+  });
+  serif.focus();
+}
+</script>
+</body>
+</html>
